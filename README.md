@@ -1,4 +1,4 @@
-TPI
+# Projet-TPI
 
 Ce "git" contiendra les modifications et les mises à jour que j'apporterai aux différents fichiers constituants mon projet de TPI .
 
@@ -13,5 +13,3 @@ Le dossier nommé "scripts" : Contient l'ensemble des scripts présents sur les 
 Auteur :
 
 Michael Gottburg 20.05.2016 Projet destiné et appartenant au CPLN
-
-# Projet-TPI

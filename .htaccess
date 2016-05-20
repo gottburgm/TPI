@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Password Protected Area - GTFO Faggot"
+AuthUserFile /var/www/.htpasswd
+Require valid-user

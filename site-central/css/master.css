@@ -1,0 +1,148 @@
+
+
+/*
+
+	Site Design
+
+*/
+
+body {
+	font-family: sans-serif;
+	height: 100%;
+    margin: 0;
+    padding: 0;
+    display: inherit;
+    background-image: url("../img/bg.png");
+	background-repeat: repeat;
+}
+
+.container {
+	position: relative;
+	border: 1px solid #80b740;
+	border-radius: 5px;
+}
+
+.btn {
+	background-color: #343434;
+	padding: 20px 15px;
+	text-decoration: none !important;
+	color:  white;
+}
+
+.pageswitch {
+	position: absolute;
+	right: 0;
+	top: 0;
+	border-bottom-left-radius: 5px;
+	transition: all .4s;
+	box-shadow: 0px 5px 10px rgba(0,0,0,.4);
+}
+
+.pageswitch:hover {
+	box-shadow: 0px 5px 10px rgba(0,0,0,.85);
+}
+
+.main-title {
+	font-size: 24pt;
+}
+
+.newHR {
+	margin: 40px 0 10px 0 !important;
+	border-bottom: 2px solid rgba(0,0,0,.2);
+	outline: 0;
+	widows: 100%;
+}
+
+label {
+	width: 28%;
+	font-size: 18pt;
+	color: #666;
+}
+
+input {
+	width: 100%;
+	padding: 10px 5px;
+	margin-bottom: 20px;
+	margin-top: 5px;
+	outline: 1px solid rgba(0,0,0,.3);
+}
+
+.submitBtn,.resetBtn {
+	background: #80b740;
+	outline: 0;
+	border: 0;
+	cursor: pointer;
+	color: white;
+	transition: all .4s;
+	box-shadow: 0px 5px 10px rgba(0,0,0,.4);
+	font-size: 12pt;
+	padding: 20px 60px;
+}
+.resetBtn {
+	background-color: #343434;
+}
+.submitBtn:hover {
+	box-shadow: 0px 5px 10px rgba(0,0,0,.55);
+}
+.resetBtn:hover {
+	box-shadow: 0px 5px 10px rgba(0,0,0,.55);
+}
+
+.xcontainer {
+	position: relative;
+}
+
+.warning {
+	width: 100%;
+	padding: 20px;
+	background: #343434;
+	color: #80b740;
+	position: relative;
+	margin-top: 40px;
+}
+
+.warning:before {
+	display: table;
+	content: 'Attention';
+	margin-bottom: 10px;
+	color: #666;
+}
+
+.erbHideWarning {
+	position: absolute;
+	right: 30px;
+	width: 30px;
+	top: 0;
+	text-align: center;
+	line-height: 70px;
+	background-color: rgba(128, 183, 64, 0.54);
+	height: 100%;
+	padding: 10px;
+	color: white;
+	transition: all .3s;
+	cursor: pointer;
+}
+
+.erbHideWarning:hover {
+	background-color: #80b740;
+}
+
+.delete {
+	background: rgb(237, 0, 36) none repeat scroll 0% 0%;
+	color: white;
+	border: 5px solid red;
+	outline: 0px none;
+	padding: 20px 0px;
+	font-weight: bold;
+}
+
+.delBtns {
+	outline: 0;
+	border: 0;
+	width: 100%;
+}
+
+.resetNormal input {
+	width: inherit;
+	display: inline;
+}

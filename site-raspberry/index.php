@@ -18,7 +18,7 @@ include ('./includes/header.php');
         	    # On inclus le script contenant les fonctions ainsi que les classes necessaires
              include_once('./includes/functions.php');
 
-                # Variables globales
+              # Variables globales
              $num_bus;
              $id_bus;
              $date_acquisition;
@@ -36,7 +36,24 @@ include ('./includes/header.php');
                 # et qui retournera un objet Bus avec les informations du bus si celui-ci est present
                 # sinon retourne "false"
              $bus_existe = $DB_locale->Bus_Existe();
-
+             
+	    # Si un bus se trouve dans la base de donnes et que l'utilisateur a demande sa suppression
+	    if(($bus_existe)&&(isset($_POST['supprimer'])))
+	    {
+		# On lance la suppression
+	        exec("perl /var/www/scripts/functions.pl --remove $idBus", $output);
+		
+		if(!($output[0] == "true"))
+		{
+		     $bus_existe = new Bus();
+		     echo "<script>$(\"#erbWarning\").hide(600);</script><br><div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>Le bus a été supprimé.</p> <div class='erbHideWarning' id='erbHideWarning'> X </div>";
+	             
+		}
+		else
+		{
+		     echo "<script>$(\"#erbWarning\").hide(600);</script><br><div class='erbWraning warning2' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>Une erreur est survenue, le bus n'a pas été supprimé .</p> <div class='erbHideWarning' id='erbHideWarning'> X </div>";
+		}
+	     }
                 # Si une action a ete demandee (si un bouton a ete clique)
              if((isset($_POST['modifier']))||(isset($_POST['enregistrer'])))
              {

@@ -71,6 +71,13 @@ sub Parametres {
       {
          Bus_Update();
       }
+
+      when ($ARGV[$argnum] eq '--remove')
+      {
+         $value_pos = $argnum + 1;
+         $value = $ARGV[$value_pos];
+         Bus_Remove($value);
+      }
       
       # Jamais appelle par un tiers mais present si necessaire
       when($ARGV[$argnum] eq '--synchronisation')
@@ -288,6 +295,27 @@ sub Bus_Update {
   }
 }
 
+sub Bus_Remove {
+  my $idBus = Get_BusID();
+
+  # Si la base de donnes distante est accessible et qu on a recupere le numero unique de notre bus local
+  if ((!($BDD_Centrale eq "false"))&&($idBus))
+  {
+    # Suppression dans la base de donnees locale
+    my $sth = $BDD_Locale->prepare("DELETE FROM tblBus");
+    $sth->execute();
+
+    # Suppression dans la base de donnes distante
+    $sth = $BDD_Centrale->prepare("DELETE FROM tblBus WHERE numero=$idBus");
+    $sth->execute();
+    print "true\n";
+  }
+  else
+  {
+    print "false\n";
+  }
+}
+
 # Fonction :    Get_BusID
 # Parametres :  Aucun
 # Retour :      $bus_ID     => Correspond au numero unique de notre bus sur la base de donnes centrale, enregistre localement
@@ -447,7 +475,10 @@ sub Save_Position {
   my $actualDate = strftime("%Y:%m:%d %H:%M:%S", localtime);
 
   # Recuperation de la latitude, longitude et date a partir de la chaine recue grace a un regex
-  my ($latitude, $longitude, $date) = $position_string =~ /(.*?):(.*?):(.*?):/;
+  my ($latitude, $longitude, $date) = $position_string =~ /(.*):(.*):(.*)/sgi;
+  
+  # On formate la date extraite
+  $date = format_satellite_date($date);
 
   # Si la latitude et la longitude ne contiennent pas "0.00", ce qui correspond a une position inconnue pour le gps
   if((!($latitude =~ /^0\.00/))&&(!($longitude =~ /^0\.00/)))
@@ -464,6 +495,13 @@ sub Save_Position {
 
   # Lancement de la synchronisation des donnees a chaque execution de la fonction
   Synchronisation();
+}
+
+sub format_satellite_date {
+  my $date = @_[0];
+  my $date_formated = substr($date,0,4) . ":" . substr($date,4,2) . ":" . substr($date,6,2) . " " . substr($date,8,2) . ":" . substr($date,10,2) . ":" . substr($date,12,2);
+  
+  return $date_formated;
 }
 
 # Fonction :    Convert_DecimalToDegrees

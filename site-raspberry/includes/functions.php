@@ -94,7 +94,8 @@ function formulaire_saisie_bus()
   <label>Numero d'identification : </label><input type=\"text\" name=\"id_bus\" placeholder=\"/\" /><br>\n
   <label>Date debut d'acquisition : </label><input type=\"text\" name=\"date_acquisition\" placeholder=\"/\" /><br>\n
   <button class='submitBtn' type=\"submit\" name=\"enregistrer\" value=\"Enregistrer\" >Enregistrer</button>\n
-  <button class='resetBtn' type=\"reset\" name=\"effacer\" value=\"Effacer\" >Effacer la saisie</button><div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>  Veuillez saisir la date dans le format suivant: YYYY-MM-DD HH:MM <br>Exemple: 2016-05-01 12:00</p> <div class='erbHideWarning' id='erbHideWarning'> X </div></div>
+  <button class='resetBtn' type=\"reset\" name=\"effacer\" value=\"Effacer\" >Effacer la saisie</button>
+  <div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>  Veuillez saisir la date dans le format suivant: YYYY-MM-DD HH:MM <br>Exemple: 2016-05-01 12:00</p> <div class='erbHideWarning' id='erbHideWarning'> X </div></div>
   ";
 }
 
@@ -107,7 +108,9 @@ function affiche_infos_bus($bus)
   <label>Date debut d'acquisition : </label>
   <input type=\"text\" name=\"date_acquisition\" value=\"" . $bus->debut_acquisition . "\" /><br><br><br>\n
   <button class='btn submitBtn' type=\"submit\" name=\"modifier\" value=\"Modifier\" >Modiifer</button>
-  <button class='resetBtn' type=\"reset\" name=\"effacer\" value=\"Effacer\" >Effacer la saisie</button></div><br><div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>  Veuillez saisir la date dans le format suivant: YYYY-MM-DD HH:MM <br>Exemple: 2016-05-01 12:00</p> <div class='erbHideWarning' id='erbHideWarning'> X </div></div>\n
+  <button class='resetBtn' type=\"reset\" name=\"effacer\" value=\"Effacer\" >Effacer la saisie</button></div><br>
+  <button class='btn resetBtn' type=\"submit\" name=\"supprimer\" value=\"Supprimer\" >Supprimer le bus</button>  
+  <div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>  Veuillez saisir la date dans le format suivant: YYYY-MM-DD HH:MM <br>Exemple: 2016-05-01 12:00</p> <div class='erbHideWarning' id='erbHideWarning'> X </div></div>\n
   ";
 }
 
@@ -294,6 +297,7 @@ function formulaire_saisie_configuration()
           $result->bindValue(':dateDebutAcquisition', $bus->debut_acquisition);
           $result->execute();
         }
+	
       }
 
       ?>

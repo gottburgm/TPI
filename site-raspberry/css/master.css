@@ -144,11 +144,26 @@ li {
 .resetBtn {
 	background-color: #343434;
 }
+
+.deleteBtn {
+        background: rgb(237, 0, 36) none repeat scroll 0% 0%;
+        color: white;
+        border: 0px solid red;
+        margin-top: 40px;
+        box-shadow: 0px 5px 10px rgba(0,0,0,.4);
+        font-size: 12pt;
+        padding: 20px 60px;
+}
+
+
 .submitBtn:hover {
 	box-shadow: 0px 5px 10px rgba(0,0,0,.55);
 }
 .resetBtn:hover {
 	box-shadow: 0px 5px 10px rgba(0,0,0,.55);
+}
+.deleteBtn:hover {
+        box-shadow: 0px 5px 10px rgba(0,0,0,.55);
 }
 
 .xcontainer {

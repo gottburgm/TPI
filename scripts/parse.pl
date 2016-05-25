@@ -32,7 +32,10 @@ sub read_file {
     {
       my ($latitude, $longitude, $date) = $line =~ /lat: (.*) long: (.*) date: (.*)/sgi;
       my $formated = "$latitude:$longitude:$date";
-      push(@clean_list, $formated);
+      if($date > 20160515162845)
+      {
+      	push(@clean_list, $formated);
+      }
     }
   }
   write_file(@clean_list);

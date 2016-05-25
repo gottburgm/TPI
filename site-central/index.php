@@ -1,6 +1,6 @@
 <?php
 
-include ('includes/header.php');
+include('includes/header.php');
 include('includes/functions.php');
 
   # Creation des objets
@@ -148,11 +148,7 @@ if((isset($_POST['date_depart']))&&(isset($_POST['date_fin']))&&(!empty($_POST['
 }
 else
 {
-      # Sinon on affiche la derniere position connue du bus selecctionne
-      echo '
-  <!--Rafraichissement automatique toutes les 2 secondes -->
-  <meta http-equiv="refresh" content="2" >
-  ';
+      # Sinon on affiche la derniere position connue du bus selectionne
   $js_marker = show_last_position($DB_locale, FALSE, $num_bus, $center_map);
   $zoom=18;
 
@@ -160,11 +156,7 @@ else
 }
 else
 {
-    # Sinon on affiche la derniere position connue de chacun des bus ainsi que le rafraichissement automatique de la page
-  echo '
-  <!--Rafraichissement automatique toutes les 15 secondes -->
-  <meta http-equiv="refresh" content="15" >
-  ';
+    # Sinon on affiche la derniere position connue de chacun des bus
   $js_marker = show_last_position($DB_locale, TRUE, "",  $center_map);
   $zoom = 12;
 }
@@ -305,6 +297,9 @@ echo $js_map;
         <h1>Centrale - Bus</h1>
         <form method="POST" action="">
           <p>
+	    <p class="range-field">
+      	       <input type="range" name="refresh" id="refresh" min="1" max="50" onmouseup="document.forms[0].submit()" />
+            
             <select name="num_bus" onchange="document.forms[0].submit()">
               <?php
               # On rempli la liste des bus avec les numeros de bus presents dans la base de données

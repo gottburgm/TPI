@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS tblBus;
 CREATE TABLE IF NOT EXISTS tblBus(
 	numero INTEGER AUTO_INCREMENT PRIMARY KEY,
 	idBus INTEGER,
-    numeroBus VARCHAR(30) NOT NULL,
+        numeroBus VARCHAR(30) NOT NULL,
 	adresseIP VARCHAR(30) NOT NULL,
 	dateDerniereSynchronisation DATETIME NOT NULL, 
 	dateDebutAcquisition DATETIME

@@ -2,6 +2,17 @@
 	# Titre de la page
 	$siteTitle = "Site Web Centrale Bus";
 	session_start();
+
+	$refresh = '';
+
+	if((isset($_POST['refresh']))&&(is_numeric($_POST['refresh']))&&($_POST['refresh'] > 0)&&($_POST['refresh'] <= 50))
+	{
+	    $refresh = $_POST['refresh'];
+	}
+	else
+	{
+	    $refresh = 15;
+	}
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +25,9 @@
 
 		<meta charset="UTF-8">
 		<meta name="author" content="Michael Gottburg">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+	        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <!--Rafraichissement automatique toutes les 2 secondes -->
+                <meta http-equiv="refresh" content="<?php echo($refresh) ?>" >
 		<title><?php echo($siteTitle) ?> </title>
 		<link rel="stylesheet" href="css/master.css">
 		<style>

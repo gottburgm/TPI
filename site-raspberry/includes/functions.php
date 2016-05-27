@@ -107,7 +107,7 @@ function affiche_infos_bus($bus)
   <input type=\"text\" name=\"adresse_ip\" value=\"" . $bus->adresse_IP . "\" disabled/><br>\n
   <label>Date debut d'acquisition : </label>
   <input type=\"text\" name=\"date_acquisition\" value=\"" . $bus->debut_acquisition . "\" /><br><br><br>\n
-  <button class='btn submitBtn' type=\"submit\" name=\"modifier\" value=\"Modifier\" >Modiifer</button>
+  <button class='btn submitBtn' type=\"submit\" name=\"modifier\" value=\"Modifier\" >Modifier</button>
   <button class='btn resetBtn' type=\"reset\" name=\"effacer\" value=\"Effacer\" >Effacer la saisie</button>
   <button class='btn deleteBtn' type=\"submit\" name=\"supprimer\" value=\"Supprimer\" >Supprimer le bus</button></div></br>  
   <div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>  Veuillez saisir la date dans le format suivant: YYYY-MM-DD HH:MM <br>Exemple: 2016-05-01 12:00</p> <div class='erbHideWarning' id='erbHideWarning'> X </div></div>\n
@@ -179,17 +179,19 @@ function formulaire_saisie_configuration()
         {
           # On recupere l'adresse IP et on l'attribue a la propriete correspondante
           $this->adresse_IP = $_SERVER['SERVER_ADDR'];
-
-          # On lui met la valeur 0, c'est le script de fonctions PERL qui se chargera de lui attribuer la bonne valeur
+          
+	# On lui met la valeur 0, c'est le script de fonctions PERL qui se chargera de lui attribuer la bonne valeur
           $this->idBus = 0;
         }
         
-        function Bus_Setup($numeroBus, $debut_acquisition, $derniere_synchronisation)
+        function Bus_Setup($idBus, $numeroBus, $debut_acquisition, $derniere_synchronisation)
         {
+          $this->idBus = $idBus;
           $this->numeroBus = $numeroBus;
           $this->derniere_synchronisation = $derniere_synchronisation;
           $this->debut_acquisition = $debut_acquisition;
         }
+
       }
 
       class Database {

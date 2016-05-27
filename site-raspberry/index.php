@@ -77,7 +77,7 @@ include ('./includes/header.php');
                             exec("perl /var/www/scripts/functions.pl --check-num $num_bus", $output);
 
                                 # Si le script retourne autre chose que "true", la valeur saisie n'est pas valide
-                            if(!($output[0] == "true"))
+                            if($output[0] == "false")
                             {
                                 $num_bus_valide = "false";
                             }
@@ -172,7 +172,7 @@ include ('./includes/header.php');
                                     # Creation d'un nouvel objet de type bus
                                 $BUS = new Bus();
                                     # Attribution des nouvelles valeurs
-                                $BUS->Bus_Setup($num_bus, $date_acquisition, date("Y:m:d-H:i:s"));
+                                $BUS->Bus_Setup(0, $num_bus, $date_acquisition, date("Y:m:d-H:i:s"));
                                 
                                     # Enregistrement local de celui-ci
                                 $DB_locale->Bus_Register($BUS);

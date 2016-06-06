@@ -74,9 +74,7 @@ sub Parametres {
 
       when ($ARGV[$argnum] eq '--remove')
       {
-         $value_pos = $argnum + 1;
-         $value = $ARGV[$value_pos];
-         Bus_Remove($value);
+         Bus_Remove();
       }
       
       # Jamais appelle par un tiers mais present si necessaire
@@ -304,9 +302,13 @@ sub Bus_Remove {
     # Suppression dans la base de donnees locale
     my $sth = $BDD_Locale->prepare("DELETE FROM tblBus");
     $sth->execute();
+    $sth = $BDD_Locale->prepare("DELETE FROM tblPositions");
+    $sth->execute();
 
     # Suppression dans la base de donnes distante
     $sth = $BDD_Centrale->prepare("DELETE FROM tblBus WHERE numero=$idBus");
+    $sth->execute();
+    $sth = $BDD_Centrale->prepare("DELETE FROM tblPositions WHERE num_tblBus=$idBus");
     $sth->execute();
     print "true\n";
   }

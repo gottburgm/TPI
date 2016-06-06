@@ -15,12 +15,30 @@ include ('./includes/header.php');
        <?php
        include_once('./includes/functions.php');
        Main();
-
+	
        function Main()
        {
         # Affichage du formulaire de saisie de la planification
         formulaire_saisie_configuration();
-
+	
+	# On regarde si des taches existent deja
+	$tasks = get_tasks();
+	$tasks_html;
+	
+	if(!($tasks == "false"))
+	{
+	   for ($i = 0; $i < count($tasks); $i++)
+	   {
+	     $tasks_html = $tasks_html . $tasks[$i] . "<br>";
+	   }
+	   
+	   echo "<script>$(\"#erbWarning\").hide(600);</script><br><div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>" . $tasks_html . "</p> <div class='erbHideWarning' id='erbHideWarning'> X </div>";
+	}
+	else
+	{
+	  echo "<script>$(\"#erbWarning\").hide(600);</script><br><div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>Aucune tâche planifée actuellement.</p> <div class='erbHideWarning' id='erbHideWarning'> X </div>";
+	}
+	
         if(isset($_POST['clear_db']))
         {
           # Suppression directe des positions

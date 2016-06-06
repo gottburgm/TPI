@@ -298,8 +298,9 @@ echo $js_map;
         <form method="POST" action="">
           <p>
 	    <p class="range-field">
+	       <label>Raffraîchissement automatique:</label>
       	       <input type="range" name="refresh" id="refresh" min="1" max="50" onmouseup="document.forms[0].submit()" />
-            
+            <label>Bus:</label>
             <select name="num_bus" onchange="document.forms[0].submit()">
               <?php
               # On rempli la liste des bus avec les numeros de bus presents dans la base de données
@@ -311,40 +312,48 @@ echo $js_map;
               $num_bus = '';
               $numero = "" ;
               $position_actuelle = "" ;
-              $select = "";
+              $disabled = "";
               
               if(isset($_POST['num_bus']))
               {
                 $num_bus = $_POST['num_bus'];
               }
               
-              # On parcours les donnees afin de rester sur le bus que l'utilisateur a choisi meme après le rechargement de la page
-              while( $row = $result->fetch(PDO::FETCH_OBJ) ) {
-                if ($row->numeroBus == $num_bus) {
-                  $select = 'selected="selected"' ;
-                  $numero = $row->numeroBus;        
-                }
-                else {
-                  $select = "" ;
-                }
-                # Affichage de chacun des numeros de bus dans la liste
-                echo "<option value=\"". $row->numeroBus . "\" " .  $select . " >". $row->numeroBus . "</option>\n" ;
-              }
+              if($result->rowCount() > 0)
+              {
+		# On parcours les donnees afin de rester sur le bus que l'utilisateur a choisi meme après le rechargement de la page
+		while( $row = $result->fetch(PDO::FETCH_OBJ) ) {
+		  if ($row->numeroBus == $num_bus)
+		  {
+		    $select = 'selected="selected"' ;
+		    echo "<option value=\"". $row->numeroBus . "\" selected=\"selected\"> ". $row->numeroBus . "</option>\n" ;   
+		  }
+		  else
+		  {
+		    echo "<option value=\"". $row->numeroBus . "\" >" . $row->numeroBus . "</option>\n" ;
+		  }		 
+		}
+	      }
+	      else
+	      {
+		echo '<option disabled=""><i>Pas encore de bus dans la base de données</i></option>\n';
+		$disabled="disabled=\"\"";
+	      }
               ?>
             </select>
           </p>
           <p>
             <label>Date du départ du trajet: </label>
-            <input type="text" name="date_depart" placeholder="2017-04-19" class="datepicker">
+            <input type="text" name="date_depart" placeholder="2017-04-19" class="datepicker" <?php echo $disabled ?> >
             <br>
             <label>Date de fin du trajet: </label>
-            <input type="text" name="date_fin" placeholder="2017-05-19" class="datepicker">
+            <input type="text" name="date_fin" placeholder="2017-05-19" class="datepicker" <?php echo $disabled ?> >
             <br>
             <label>Heure départ du trajet: </label>
-            <input type="text" name="heure_depart" placeholder="10:30" />
+            <input type="text" name="heure_depart" placeholder="10:30" <?php echo $disabled ?> />
             <br>
             <label>Heure fin du trajet : </label>
-            <input type="text" name="heure_fin" placeholder="11:00" />
+            <input type="text" name="heure_fin" placeholder="11:00" <?php echo $disabled ?> />
             <br>
           </p>
           <p>

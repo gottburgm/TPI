@@ -1,6 +1,21 @@
 <?php
 # Fonctions
 
+function get_tasks() {
+  $tasks;
+  
+  exec("sudo crontab -u www-data -l", $tasks);
+  
+  if(!(strstr($tasks[0], "no crontab for")))
+  {
+    return $tasks;
+  }
+  else
+  {
+    return "false";
+  }
+}
+
 function get_inputs() {
   $months = '*';
   $days = '*';
@@ -263,7 +278,7 @@ function formulaire_saisie_configuration()
             while ($row = $result->fetch(PDO::FETCH_OBJ))
             {
               $this->BUS = new Bus();
-              $this->BUS->Bus_Setup($row->numeroBus, $row->dateDebutAcquisition, $row->dateDerniereSynchronisation);
+              $this->BUS->Bus_Setup($row->idBus, $row->numeroBus, $row->dateDebutAcquisition, $row->dateDerniereSynchronisation);
             }
             return $this->BUS;
           }

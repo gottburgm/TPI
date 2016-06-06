@@ -43,15 +43,15 @@ include ('./includes/header.php');
 		# On lance la suppression
 	        exec("perl /var/www/scripts/functions.pl --remove $idBus", $output);
 		
-		if(!($output[0] == "true"))
+		if($output[0] == "true")
 		{
 		     $bus_existe = new Bus();
-		     echo "<script>$(\"#erbWarning\").hide(600);</script><br><div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>Le bus a été supprimé.</p> <div class='erbHideWarning' id='erbHideWarning'> X </div>";
-	             
+		     echo "<script>$(\"#erbWarning\").hide(600);</script><br><div class='erbWraning warning' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>Le bus a été supprimé.</p> <div class='erbHideWarning' id='erbHideWarning'> X </div></div><br>";
+		     header("Location: index.php");
 		}
 		else
 		{
-		     echo "<script>$(\"#erbWarning\").hide(600);</script><br><div class='erbWraning warning2' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>Une erreur est survenue, le bus n'a pas été supprimé .</p> <div class='erbHideWarning' id='erbHideWarning'> X </div>";
+		     echo "<script>$(\"#erbWarning\").hide(600);</script><br><div class='erbWraning warning2' id='erbWarning'> <p class='erbWarningText' style='max-width: 95%;'>Une erreur est survenue, le bus n'a pas été supprimé .</p> <div class='erbHideWarning' id='erbHideWarning'> X </div></div><br>";
 		}
 	     }
                 # Si une action a ete demandee (si un bouton a ete clique)
@@ -105,7 +105,7 @@ include ('./includes/header.php');
                         }
 
                             # Si les deux champs saisis sont correctes
-                        if(($num_bus_valide == "true")&&($date_acquisition_valide == "true"))
+                        if((($num_bus_valide == "true")||($num_bus == $bus_existe->numeroBus))&&($date_acquisition_valide == "true"))
                         {
                             $bus_existe->numeroBus = $num_bus;
                             $bus_existe->debut_acquisition = $date_acquisition;
@@ -164,7 +164,7 @@ include ('./includes/header.php');
                                     {
                                             # On attribue la date par defaut, qui sera toujours plus petite que celle du jours et 
                                             # donc la collecte se fera des que celle-ci sera configuree                                           
-                                        $date_acquisition = date("Y:m:d-H:i", strtotime('0000-00-00'));
+                                        $date_acquisition = date("Y:m:d-H:i", strtotime('1970-01-01'));
                                     }
                                     
                                 }
@@ -172,7 +172,7 @@ include ('./includes/header.php');
                                     # Creation d'un nouvel objet de type bus
                                 $BUS = new Bus();
                                     # Attribution des nouvelles valeurs
-                                $BUS->Bus_Setup(0, $num_bus, $date_acquisition, date("Y:m:d-H:i:s"));
+                                $BUS->Bus_Setup($idBus, $num_bus, $date_acquisition, date("Y:m:d-H:i:s"));
                                 
                                     # Enregistrement local de celui-ci
                                 $DB_locale->Bus_Register($BUS);
